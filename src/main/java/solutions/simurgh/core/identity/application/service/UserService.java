@@ -107,7 +107,7 @@ public class UserService {
   }
 
   @Transactional(readOnly = true)
-  private User getUserById(UUID id) {
+  public User getUserById(UUID id) {
     return repository.findById(id)
             .orElseThrow(() ->
                     new UserNotFoundException(id)
