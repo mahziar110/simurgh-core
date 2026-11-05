@@ -68,11 +68,17 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
-          <release>21</release>
+          <release>${java.version}</release>
           <annotationProcessorPaths>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${org.mapstruct.version}</version>
+            </path>
           </annotationProcessorPaths>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 
