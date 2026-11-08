@@ -43,7 +43,7 @@ public class UserService {
     String normalizedUsername = normalize(username);
     return repository.findByUsername(normalizedUsername)
             .orElseThrow(() ->
-                    new IllegalArgumentException("User not found.")
+                    new UserNotFoundException(username)
             );
   }
 
