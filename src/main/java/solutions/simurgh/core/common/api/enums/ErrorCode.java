@@ -1,0 +1,13 @@
+package solutions.simurgh.core.common.api.enums;
+
+public enum ErrorCode {
+  USER_NOT_FOUND,
+  USERNAME_ALREADY_EXISTS,
+  EMAIL_ALREADY_EXISTS,
+
+  VALIDATION_ERROR,
+  INVALID_REQUEST,
+
+  RESOURCE_CONFLICT,
+  INTERNAL_SERVER_ERROR
+}
