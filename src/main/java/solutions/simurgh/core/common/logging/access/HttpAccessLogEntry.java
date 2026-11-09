@@ -13,5 +13,5 @@ public record HttpAccessLogEntry(
         int status,
         long durationMs,
         RequestOutcome outcome,
-        String exceptionType
+        String errorCode
 ) {}

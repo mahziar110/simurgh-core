@@ -27,52 +27,43 @@ public class HttpAccessLogFilter extends OncePerRequestFilter {
   ) throws ServletException, IOException {
     String requestId = UUID.randomUUID().toString();
     long startTime = System.nanoTime();
-    String exceptionType = null;
     response.setHeader(REQUEST_ID_HEADER, requestId);
     MDC.put("requestId", requestId);
-    try {
-      filterChain.doFilter(request, response);
-    } catch (IOException | RuntimeException ex) {
-      exceptionType = ex.getClass().getSimpleName();
-      throw ex;
-    } finally {
-      long durationMs =
-              (System.nanoTime() - startTime) / 1_000_000;
-      int status = response.getStatus();
-      if (exceptionType != null && status < 400) {
-        status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-      }
-      RequestOutcome outcome = determineOutcome(status, exceptionType);
-      HttpAccessLogEntry entry = new HttpAccessLogEntry(
-              Instant.now(),
-              requestId,
-              request.getMethod(),
-              request.getRequestURI(),
-              status,
-              durationMs,
-              outcome,
-              exceptionType
-
-      );
-      writeLog(entry);
-      MDC.remove("requestId");
-    }
+    filterChain.doFilter(request, response);
+    long durationMs =
+            (System.nanoTime() - startTime) / 1_000_000;
+    int status = response.getStatus();
+    String errorCode = (String) request.getAttribute(HttpAccessLogAttributes.ERROR_CODE);
+    RequestOutcome outcome = determineOutcome(status);
+    HttpAccessLogEntry entry = new HttpAccessLogEntry(
+            Instant.now(),
+            requestId,
+            request.getMethod(),
+            request.getRequestURI(),
+            status,
+            durationMs,
+            outcome,
+            errorCode
+    );
+    writeLog(entry);
+    MDC.remove("requestId");
   }
 
   private RequestOutcome determineOutcome(
-          int status,
-          String exceptionType
+          int status
   ) {
-    if (exceptionType != null) {
+    if (status >= 500)
       return RequestOutcome.ERROR;
-    }
-    return status >= 400 ? RequestOutcome.FAILURE : RequestOutcome.SUCCESS;
+    else if (status >= 400)
+      return RequestOutcome.FAILURE;
+    else
+      return RequestOutcome.SUCCESS;
   }
 
   private void writeLog(HttpAccessLogEntry entry) {
     String message = """
             HTTP ACCESS | requestId={} method={} path={} \
-            status={} durationMs={} outcome={} exceptionType={}
+            status={} durationMs={} outcome={} errorCode={}
             """;
     if (entry.status() >= 500) {
       logger.error(
@@ -83,7 +74,7 @@ public class HttpAccessLogFilter extends OncePerRequestFilter {
               entry.status(),
               entry.durationMs(),
               entry.outcome(),
-              entry.exceptionType()
+              entry.errorCode()
       );
     } else if (entry.status() >= 400) {
       logger.warn(
@@ -94,10 +85,9 @@ public class HttpAccessLogFilter extends OncePerRequestFilter {
               entry.status(),
               entry.durationMs(),
               entry.outcome(),
-              entry.exceptionType()
+              entry.errorCode()
       );
     } else {
-
       logger.info(
               message,
               entry.requestId(),
@@ -106,7 +96,7 @@ public class HttpAccessLogFilter extends OncePerRequestFilter {
               entry.status(),
               entry.durationMs(),
               entry.outcome(),
-              entry.exceptionType()
+              entry.errorCode()
       );
     }
   }
