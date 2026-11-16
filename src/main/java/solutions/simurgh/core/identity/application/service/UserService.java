@@ -20,7 +20,6 @@ import java.util.UUID;
 @Service
 @Transactional
 public class UserService {
-
   private static final Logger logger =
           LoggerFactory.getLogger(UserService.class);
   private final UserRepository repository;
