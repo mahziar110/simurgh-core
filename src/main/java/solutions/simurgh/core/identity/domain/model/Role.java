@@ -12,6 +12,16 @@ import java.util.UUID;
 public class Role {
   protected Role() {}
 
+  public Role(
+          String name,
+          String code,
+          String description
+  ) {
+    setName(name);
+    setCode(code);
+    setDescription(description);
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
@@ -39,17 +49,13 @@ public class Role {
     updatedAt = Instant.now();
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  public void setName(String name) { this.name = name.trim(); }
 
   public void setCode(String code) {
     this.code = code.toUpperCase(Locale.ROOT).trim();
   }
 
-  public void setDescription(String description) {
-
-  }
+  public void setDescription(String description) { this.description = description; }
 
   public UUID getId() { return id; }
 
