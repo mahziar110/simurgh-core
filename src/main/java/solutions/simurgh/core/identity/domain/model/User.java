@@ -1,6 +1,7 @@
 package solutions.simurgh.core.identity.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import solutions.simurgh.core.identity.domain.enums.UserStatus;
 
 import java.time.Instant;

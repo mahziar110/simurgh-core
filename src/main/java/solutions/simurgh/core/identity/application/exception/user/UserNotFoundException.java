@@ -1,4 +1,4 @@
-package solutions.simurgh.core.identity.application.exception;
+package solutions.simurgh.core.identity.application.exception.user;
 
 import java.util.UUID;
 

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import solutions.simurgh.core.common.api.dto.ApiError;
 import solutions.simurgh.core.common.api.enums.ErrorCode;
 import solutions.simurgh.core.common.logging.access.HttpAccessLogAttributes;
-import solutions.simurgh.core.identity.application.exception.EmailAlreadyExistsException;
-import solutions.simurgh.core.identity.application.exception.UserNotFoundException;
-import solutions.simurgh.core.identity.application.exception.UsernameAlreadyExistsException;
+import solutions.simurgh.core.identity.application.exception.user.EmailAlreadyExistsException;
+import solutions.simurgh.core.identity.application.exception.user.UserNotFoundException;
+import solutions.simurgh.core.identity.application.exception.user.UsernameAlreadyExistsException;
 
 import java.util.stream.Collectors;
 

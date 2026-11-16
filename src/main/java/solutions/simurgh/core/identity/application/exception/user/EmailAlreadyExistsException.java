@@ -1,4 +1,4 @@
-package solutions.simurgh.core.identity.application.exception;
+package solutions.simurgh.core.identity.application.exception.user;
 
 public class EmailAlreadyExistsException extends RuntimeException {
   public EmailAlreadyExistsException(String email) {

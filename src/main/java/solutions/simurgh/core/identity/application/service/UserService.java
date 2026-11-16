@@ -8,9 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import solutions.simurgh.core.identity.application.exception.EmailAlreadyExistsException;
-import solutions.simurgh.core.identity.application.exception.UserNotFoundException;
-import solutions.simurgh.core.identity.application.exception.UsernameAlreadyExistsException;
+import solutions.simurgh.core.identity.application.exception.user.EmailAlreadyExistsException;
+import solutions.simurgh.core.identity.application.exception.user.UserNotFoundException;
+import solutions.simurgh.core.identity.application.exception.user.UsernameAlreadyExistsException;
 import solutions.simurgh.core.identity.domain.model.User;
 import solutions.simurgh.core.identity.domain.repository.UserRepository;
 
