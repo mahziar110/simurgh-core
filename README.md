@@ -30,7 +30,7 @@ Simurgh aims to address this challenge by bringing infrastructure monitoring, te
 
 The platform is being designed around two primary components:
 
-- **Simurgh Server:** The central management and data processing platform.
+- **Simurgh Core:** The central management and data processing platform.
 - **Simurgh Feather:** A lightweight and extensible agent platform responsible for collecting telemetry from monitored environments.
 
 The long-term goal is to provide a unified monitoring experience across different infrastructure environments, from individual Linux servers to complex distributed systems.
@@ -50,7 +50,7 @@ Simurgh is being built with the following principles in mind:
 
 Simurgh follows a distributed architecture consisting of a central server and lightweight monitoring agents.
 
-### Simurgh Server
+### Simurgh Core
 
 The central component responsible for managing the monitoring platform.
 
