@@ -67,6 +67,8 @@ public class Role {
 
   public void setDescription(String description) { this.description = description; }
 
+  public void setPermissions(Set<Permission> permissions) { this.permissions = permissions; }
+
   public UUID getId() { return id; }
 
   public String getName() { return name; }
@@ -80,4 +82,6 @@ public class Role {
   public Instant getCreatedAt() { return createdAt; }
 
   public Instant getUpdatedAt() { return updatedAt; }
+
+  public Set<Permission> getPermissions() { return permissions; }
 }
