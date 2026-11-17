@@ -1,5 +1,5 @@
  <p align="center">
-  <img src="assets/simurgh.png" alt="Simurgh Logo" width="220">
+  <img src="assets/simurgh-logo.png" alt="Simurgh Logo" width="220">
 </p>
 
 <h1 align="center">Simurgh</h1>
