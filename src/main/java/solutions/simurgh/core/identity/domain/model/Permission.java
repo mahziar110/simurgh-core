@@ -48,7 +48,7 @@ public class Permission {
     updatedAt = Instant.now();
   }
 
-  public void setName(String name) { this.name = name.trim(); }
+  public void setName(String name) { this.name = name.trim().toUpperCase(Locale.ROOT); }
 
   public void setCode(String code) {
     this.code = code.trim();
