@@ -15,10 +15,17 @@ import java.util.UUID;
 public class User {
   protected User() {}
 
-  public User(String username, String email, String firstname, String lastname) {
+  public User(
+          String username,
+          String email,
+          String firstname,
+          String lastname,
+          String password
+  ) {
     setUsername(username);
     setEmail(email);
     changeName(firstname, lastname);
+    setPassword(password);
     this.status = UserStatus.PENDING;
   }
 
@@ -37,6 +44,9 @@ public class User {
 
   @Column(name = "last_name", length = 100)
   private String lastname;
+
+  @Column(nullable = false)
+  private String password;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 20)
@@ -103,6 +113,10 @@ public class User {
     this.username = username.trim().toLowerCase(Locale.ROOT);
   }
 
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   public void setEmail(String email) {
     this.email = email == null || email.isBlank()
             ? null
@@ -137,6 +151,8 @@ public class User {
   public String getLastname() {
     return lastname;
   }
+
+  public String getPassword() { return password; }
 
   public UserStatus getStatus() {
     return status;

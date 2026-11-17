@@ -22,42 +22,38 @@ import java.util.UUID;
 public class UserService {
   private static final Logger logger =
           LoggerFactory.getLogger(UserService.class);
+  private final PasswordService passwordService;
   private final UserRepository repository;
 
   @Autowired
-  public UserService(UserRepository repository) {
+  public UserService(
+          UserRepository repository,
+          PasswordService passwordService
+  ) {
     this.repository = repository;
+    this.passwordService = passwordService;
   }
 
   public User createUser(
           String email,
           String username,
           String firstname,
-          String lastname
+          String lastname,
+          String password
   ) {
-    logger.debug(
-            "Creating user. username={}",
-            username
-    );
-    User user = new User(username, email, firstname, lastname);
+    logger.debug("Creating user. username={}",username);
+    String encodedPassword = passwordService.encode(password);
+    User user = new User(username, email, firstname, lastname, encodedPassword);
     if (repository.existsByUsername(user.getUsername())) {
-      logger.warn(
-              "User creation rejected. Username already exists. username={}",
-              username
-      );
+      logger.warn("User creation rejected. Username already exists. username={}", username);
       throw new UsernameAlreadyExistsException(username);
     }
     if (repository.existsByEmail(user.getEmail())) {
-      logger.warn(
-              "User creation rejected. Email already exists."
-      );
+      logger.warn("User creation rejected, Email already exists");
       throw new EmailAlreadyExistsException(email);
     }
     User savedUser = repository.save(user);
-    logger.info(
-            "User created successfully. userId={}",
-            savedUser.getId()
-    );
+    logger.info("User created successfully. userId={}", savedUser.getId());
     return savedUser;
   }
 
@@ -88,18 +84,12 @@ public class UserService {
     String normalizedEmail = normalizeNullable(email);
     if (repository.existsByUsernameAndIdNot(
             normalizedUsername, id)) {
-      logger.warn(
-              "User update rejected. Username already exists. userId={}",
-              id
-      );
+      logger.warn("User update rejected. Username already exists. userId={}", id);
       throw new UsernameAlreadyExistsException(username);
     }
     if (normalizedEmail != null &&
             repository.existsByEmailAndIdNot(normalizedEmail, id)) {
-      logger.warn(
-              "User update rejected. Email already exists. userId={}",
-              id
-      );
+      logger.warn("User update rejected. Email already exists. userId={}", id);
       throw new EmailAlreadyExistsException(email);
     }
     user.setUsername(normalizedUsername);
@@ -157,20 +147,14 @@ public class UserService {
   }
 
   private String normalize(String value) {
-    if (value == null || value.isBlank()) {
-      throw new IllegalArgumentException(
-              "Value cannot be empty."
-      );
-    }
-
+    if (value == null || value.isBlank())
+      throw new IllegalArgumentException("Value cannot be empty.");
     return value.trim().toLowerCase(Locale.ROOT);
   }
 
   private String normalizeNullable(String value) {
-    if (value == null || value.isBlank()) {
+    if (value == null || value.isBlank())
       return null;
-    }
-
     return value.trim().toLowerCase(Locale.ROOT);
   }
 }
