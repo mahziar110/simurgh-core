@@ -46,7 +46,7 @@ public class UserController {
             .body(
                     new OperationResult<>(
                             true,
-                            "User Added Successfully.",
+                            "User Added Successfully",
                             response
                     )
             );
@@ -111,7 +111,7 @@ public class UserController {
     return ResponseEntity.ok(
             new OperationResult<>(
                     true,
-                    "User Updated Successfully.",
+                    "User Updated Successfully",
                     updatedUser
             )
     );

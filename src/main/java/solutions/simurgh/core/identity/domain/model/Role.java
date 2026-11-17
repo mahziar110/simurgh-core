@@ -26,13 +26,13 @@ public class Role {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(unique = true)
+  @Column(unique = true, length = 100)
   private String name;
 
-  @Column(nullable = false, unique = true)
+  @Column(nullable = false, unique = true, length = 100)
   private String code;
 
-  @Column(columnDefinition = "TEXT")
+  @Column(columnDefinition = "TEXT", length = 500)
   private String description;
 
   @Column(name = "is_system")
