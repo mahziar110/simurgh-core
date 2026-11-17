@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -43,6 +45,14 @@ public class Role {
 
   @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
+
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+          name = "role_permissions",
+          joinColumns = @JoinColumn(name = "role_id"),
+          inverseJoinColumns = @JoinColumn(name = "permission_id")
+  )
+  private Set<Permission> permissions = new HashSet<>();
 
   @PreUpdate
   protected void onUpdate() {
