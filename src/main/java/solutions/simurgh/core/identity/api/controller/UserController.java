@@ -66,7 +66,7 @@ public class UserController {
     );
   }
 
-  @GetMapping("/{username}")
+  @GetMapping("/username/{username}")
   public ResponseEntity<OperationResult<UserResponse>> getUserByUsername(
           @PathVariable String username
   ) {

@@ -55,26 +55,28 @@ public class RoleController {
   public ResponseEntity<OperationResult<RoleResponse>> getRoleById(
           @PathVariable UUID id
   ) {
-    RoleResponse role = mapper.toResponse(service.getRoleById(id));
+    Role role = service.getRoleById(id);
+    RoleResponse response = mapper.toResponse(role);
     return ResponseEntity.ok(
             new OperationResult<>(
                     true,
                     "",
-                    role
+                    response
             )
     );
   }
 
-  @GetMapping("/{code}")
+  @GetMapping("/code/{code}")
   public ResponseEntity<OperationResult<RoleResponse>> getRoleByCode(
           @PathVariable String code
   ) {
-    RoleResponse role = mapper.toResponse(service.getRoleByCode(code));
+    Role role = service.getRoleByCode(code);
+    RoleResponse response = mapper.toResponse(role);
     return ResponseEntity.ok(
             new OperationResult<>(
                     true,
                     "",
-                    role
+                    response
             )
     );
   }
@@ -105,12 +107,12 @@ public class RoleController {
             request.code(),
             request.description()
     );
-    RoleResponse updatedRole = mapper.toResponse(role);
+    RoleResponse response = mapper.toResponse(role);
     return ResponseEntity.ok(
             new OperationResult<>(
                     true,
                     "Role Updated Successfully",
-                    updatedRole
+                    response
             )
     );
   }
