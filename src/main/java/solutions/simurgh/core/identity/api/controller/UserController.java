@@ -44,7 +44,7 @@ public class UserController {
     UserResponse response = mapper.toResponse(user);
     return ResponseEntity.status(HttpStatus.CREATED)
             .body(
-                    new OperationResult<UserResponse>(
+                    new OperationResult<>(
                             true,
                             "User Added Successfully.",
                             response
@@ -53,8 +53,24 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<OperationResult<UserResponse>> getUser(@PathVariable UUID id) {
+  public ResponseEntity<OperationResult<UserResponse>> getUserById(
+          @PathVariable UUID id
+  ) {
     UserResponse user = mapper.toResponse(service.getUserById(id));
+    return ResponseEntity.ok(
+            new OperationResult<>(
+                    true,
+                    "",
+                    user
+            )
+    );
+  }
+
+  @GetMapping("/{username}")
+  public ResponseEntity<OperationResult<UserResponse>> getUserByUsername(
+          @PathVariable String username
+  ) {
+    UserResponse user = mapper.toResponse(service.getUserByUsername(username));
     return ResponseEntity.ok(
             new OperationResult<>(
                     true,
