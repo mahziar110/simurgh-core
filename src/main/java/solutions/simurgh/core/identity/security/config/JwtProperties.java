@@ -1,7 +1,7 @@
 package solutions.simurgh.core.identity.security.config;
 
-import com.nimbusds.jose.util.Resource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.Resource;
 
 import java.time.Duration;
 
