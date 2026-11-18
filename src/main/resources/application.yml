@@ -20,3 +20,12 @@ logging:
 
   pattern:
     console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%thread] [%X{requestId:-}] %logger{40} : %msg%n"
+
+simurgh:
+  security:
+    jwt:
+      issuer: https://simurgh.local
+      audience: simurgh-api
+      access-token-ttl: 15m
+      private-key-location: file:/etc/simurgh/security/jwt-private.pem
+      public-key-location: file:/etc/simurgh/security/jwt-public.pem

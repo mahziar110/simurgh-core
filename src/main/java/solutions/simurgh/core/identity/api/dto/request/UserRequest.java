@@ -15,5 +15,7 @@ public record UserRequest(
         @Size(max = 100)
         String firstname,
         @Size(max = 100)
-        String lastname
+        String lastname,
+        @Size(max = 100)
+        String password
 ) {}

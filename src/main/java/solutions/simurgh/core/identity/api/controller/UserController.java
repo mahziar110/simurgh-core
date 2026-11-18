@@ -39,7 +39,8 @@ public class UserController {
             request.email(),
             request.username(),
             request.firstname(),
-            request.lastname()
+            request.lastname(),
+            request.password()
     );
     UserResponse response = mapper.toResponse(user);
     return ResponseEntity.status(HttpStatus.CREATED)
